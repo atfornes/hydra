@@ -109,6 +109,10 @@ module.exports = function store(state, emitter) {
   emitter.on('mutate sketch', function () {
 
   })
+
+  emitter.on('view:fullscreen', function(){
+    document.documentElement.requestFullscreen();
+  });
 }
 
 function showConfirmation(successCallback, terminateCallback) {

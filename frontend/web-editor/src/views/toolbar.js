@@ -14,6 +14,7 @@ module.exports = function toolbar(state, emit) {
         ${icon("clear", `fa fa-trash ${hidden}`, "clear all", 'editor:clearAll')}
         ${icon("shuffle", `fa-random`, "show random sketch", 'gallery:showExample')}
         ${icon("mutator", `fa-dice ${hidden}`, "make random change", 'editor:randomize')}
+        ${icon("fullscreen", `fa-expand ${hidden}`, "go fullscreen", 'view:fullscreen')}
         ${icon("close", state.showInfo? "fa-times" : "fa-question-circle", "", 'toggle info')}
     </div>`
 }
