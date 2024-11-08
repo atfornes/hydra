@@ -1,7 +1,8 @@
 const html = require('choo/html')
 
 module.exports = function toolbar(state, emit) {
-    const hidden = state.showInfo ? 'hidden' : ''
+    const hidden = state.showInfo ? 'hidden' : '';
+    const fullscreenHidden = state.browserFullscreen? 'hidden' : '';
 
     const dispatch = (eventName) => (e) => emit(eventName, e)
 
@@ -14,7 +15,12 @@ module.exports = function toolbar(state, emit) {
         ${icon("clear", `fa fa-trash ${hidden}`, "clear all", 'editor:clearAll')}
         ${icon("shuffle", `fa-random`, "show random sketch", 'gallery:showExample')}
         ${icon("mutator", `fa-dice ${hidden}`, "make random change", 'editor:randomize')}
-        ${icon("fullscreen", `fa-expand ${hidden}`, "go fullscreen", 'view:fullscreen')}
+        ${icon("fullscreen",
+            state.fullscreen? `fa-compress`: `fa-expand`
+            + ` ${hidden}`
+            + ` ${fullscreenHidden}`,
+            "toggle fullscreen",
+            'view:toggle-fullscreen')}
         ${icon("close", state.showInfo? "fa-times" : "fa-question-circle", "", 'toggle info')}
     </div>`
 }

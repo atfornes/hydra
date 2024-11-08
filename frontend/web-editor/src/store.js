@@ -110,9 +110,29 @@ module.exports = function store(state, emitter) {
 
   })
 
-  emitter.on('view:fullscreen', function(){
-    document.documentElement.requestFullscreen();
+  // toggle fullscreen
+  emitter.on('view:toggle-fullscreen', function() {
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen()
+    }
   });
+
+  addEventListener("fullscreenchange", function() {
+    // render UI again after fullscreen change
+    state.fullscreen = document.fullscreenElement
+    emitter.emit('render');
+  });
+
+  // disable resize button when full screen comes from browser and not UI.
+  addEventListener("resize", function() {
+    state.browserFullscreen =
+      window.innerHeight == screen.height &&
+      !document.fullscreenElement
+    emitter.emit('render');
+  })
 }
 
 function showConfirmation(successCallback, terminateCallback) {
